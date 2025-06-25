@@ -11,12 +11,22 @@ config_version=5
 [application]
 
 config/name="Extintion"
+run/main_scene="uid://bavfe7oa1rkpe"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 
 [dotnet]
 
 project/assembly_name="Extintion"
+
+[gui]
+
+theme/custom="uid://c0gd1vktx3xh6"
 
 [rendering]
 
