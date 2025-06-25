@@ -1,16 +1,25 @@
-[gd_scene format=3 uid="uid://bavfe7oa1rkpe"]
+[gd_scene load_steps=5 format=3 uid="uid://bavfe7oa1rkpe"]
+
+[ext_resource type="Texture2D" uid="uid://c0r14lf0irf00" path="res://panorama_image.png" id="1_w5aja"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_onqr8"]
+panorama = ExtResource("1_w5aja")
+energy_multiplier = 0.45
+
+[sub_resource type="Sky" id="Sky_lxttp"]
+sky_material = SubResource("PanoramaSkyMaterial_onqr8")
+
+[sub_resource type="Environment" id="Environment_lxttp"]
+background_mode = 2
+sky = SubResource("Sky_lxttp")
 
 [node name="game scene" type="Node3D"]
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0188962, -0.0188956)
-
-[node name="Planet" type="CSGSphere3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.20609, 1.19209e-07, -1.54588)
-radial_segments = 25
-rings = 18
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.689101, -0.18862, -0.699687, 6.55747e-09, 0.965532, -0.260285, 0.724665, 0.179363, 0.665349, -2.54946, -0.44764, 0.61816)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Panel" type="Panel" parent="CanvasLayer"]
 visible = false
@@ -37,3 +46,29 @@ offset_top = 386.0
 offset_right = 1314.0
 offset_bottom = 417.0
 text = "Observe"
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 6
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(320, 180)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0188962, -0.0188956)
+
+[node name="Planet" type="CSGSphere3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.20609, 1.19209e-07, -1.54588)
+radial_segments = 25
+rings = 18
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lxttp")
