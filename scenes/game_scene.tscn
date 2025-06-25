@@ -1,22 +1,21 @@
 [gd_scene load_steps=5 format=3 uid="uid://bavfe7oa1rkpe"]
 
-[ext_resource type="Texture2D" uid="uid://c0r14lf0irf00" path="res://panorama_image.png" id="1_w5aja"]
+[ext_resource type="Texture2D" uid="uid://bt5smu4pvnlma" path="res://materials/planet_custom.jpg" id="1_w5aja"]
+[ext_resource type="Script" uid="uid://024uob1mwsyg" path="res://scripts/RotationY.cs" id="2_onqr8"]
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_onqr8"]
-panorama = ExtResource("1_w5aja")
-energy_multiplier = 0.45
-
-[sub_resource type="Sky" id="Sky_lxttp"]
-sky_material = SubResource("PanoramaSkyMaterial_onqr8")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w5aja"]
+albedo_texture = ExtResource("1_w5aja")
 
 [sub_resource type="Environment" id="Environment_lxttp"]
-background_mode = 2
-sky = SubResource("Sky_lxttp")
+background_mode = 1
 
 [node name="game scene" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.689101, -0.18862, -0.699687, 6.55747e-09, 0.965532, -0.260285, 0.724665, 0.179363, 0.665349, -2.54946, -0.44764, 0.61816)
+transform = Transform3D(0.793417, -0.218131, 0.568251, 0, 0.933581, 0.358368, -0.608678, -0.284335, 0.740719, 0, 0, 0)
+directional_shadow_split_1 = 0.225
+script = ExtResource("2_onqr8")
+RotationSpeed = 0.05
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
@@ -55,20 +54,26 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
-stretch_shrink = 6
+stretch_shrink = 7
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(320, 180)
+size = Vector2i(274, 154)
 render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0188962, -0.0188956)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.234991, -0.019)
 
 [node name="Planet" type="CSGSphere3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.20609, 1.19209e-07, -1.54588)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.546)
 radial_segments = 25
 rings = 18
+material = SubResource("StandardMaterial3D_w5aja")
+script = ExtResource("2_onqr8")
+RotationSpeed = 0.03
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_lxttp")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_energy = 0.193
