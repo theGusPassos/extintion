@@ -1,35 +1,96 @@
-[gd_scene load_steps=8 format=3 uid="uid://bavfe7oa1rkpe"]
+[gd_scene load_steps=14 format=3 uid="uid://bavfe7oa1rkpe"]
 
 [ext_resource type="Script" uid="uid://024uob1mwsyg" path="res://scripts/RotationY.cs" id="2_onqr8"]
 [ext_resource type="Texture2D" uid="uid://dg2vlkxq81dsa" path="res://materials/planet.jpg" id="2_ycayy"]
+[ext_resource type="Texture2D" uid="uid://dspmpqivent01" path="res://materials/panorama_image.png" id="3_ycayy"]
+
+[sub_resource type="Curve" id="Curve_onqr8"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ycayy"]
+curve = SubResource("Curve_onqr8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_onqr8"]
+emission_shape_scale = Vector3(0.3, 0.3, 1)
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 0.0
+emission_ring_radius = 0.4
+emission_ring_inner_radius = 70.32
+emission_ring_cone_angle = 0.0
+velocity_pivot = Vector3(1, 1, 0)
+direction = Vector3(1, 1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -2.23517e-06
+radial_accel_max = 0.0999978
+scale_max = 2.0
+color = Color(0, 1, 1, 0.713726)
+alpha_curve = SubResource("CurveTexture_ycayy")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_onqr8"]
+shading_mode = 0
+albedo_color = Color(0.211765, 0.211765, 0.211765, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_onqr8"]
+material = SubResource("StandardMaterial3D_onqr8")
+size = Vector2(0.01, 0.01)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ycayy"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 0.0
+emission_ring_radius = 20.42
+emission_ring_inner_radius = 168.37
+emission_ring_cone_angle = 80.4
+gravity = Vector3(0, 0, 0)
+scale_min = 10.0
+scale_max = 10.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w5aja"]
 albedo_texture = ExtResource("2_ycayy")
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_onqr8"]
-load_path = "res://.godot/imported/panorama_image.png-83e72006aaf965d527f349d848ddc15a.bptc.ctex"
-
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_bw6k5"]
-panorama = SubResource("CompressedTexture2D_onqr8")
+panorama = ExtResource("3_ycayy")
+filter = false
+energy_multiplier = 0.91
 
 [sub_resource type="Sky" id="Sky_y3j0m"]
 sky_material = SubResource("PanoramaSkyMaterial_bw6k5")
 
 [sub_resource type="Environment" id="Environment_lxttp"]
-background_mode = 1
+background_mode = 2
 background_color = Color(0.0383972, 0.0383972, 0.0383972, 1)
+background_energy_multiplier = 0.65
 sky = SubResource("Sky_y3j0m")
+sky_custom_fov = 22.5
+sky_rotation = Vector3(0.829031, -2.15025, -1.69821)
+ambient_light_color = Color(0.486837, 0.343886, 0.110284, 1)
+ambient_light_sky_contribution = 0.22
+ambient_light_energy = 0.0
 
 [node name="game scene" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.793417, -0.218131, 0.568251, 0, 0.933581, 0.358368, -0.608678, -0.284335, 0.740719, 0, 0, 0)
-directional_shadow_split_1 = 0.225
+transform = Transform3D(0.588489, -0.289748, 0.754806, 7.73294e-09, 0.933578, 0.358374, -0.808499, -0.2109, 0.549404, 0, 0, 0)
+light_energy = 2.04
+light_indirect_energy = 0.245
+light_volumetric_fog_energy = 0.73
+light_specular = 0.41
+directional_shadow_mode = 0
+directional_shadow_split_1 = 0.145
+directional_shadow_fade_start = 0.189
+directional_shadow_max_distance = 53.0
+directional_shadow_pancake_size = 5.1
 script = ExtResource("2_onqr8")
-RotationSpeed = 0.05
+RotationSpeed = 1.0
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-light_energy = 0.193
+light_color = Color(0.857505, 0.510789, 0.970346, 1)
+light_energy = 0.047
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 1.213
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
@@ -68,21 +129,63 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
-stretch_shrink = 7
+stretch_shrink = 5
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(274, 154)
+size = Vector2i(384, 216)
 render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.234991, -0.019)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.467963)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(0.459, 0, 0, 0, 0.445, 0, 0, 0, 1, 0, 0, -3.5091)
+amount = 169183
+lifetime = 524.54
+preprocess = 68.32
+speed_scale = 0.0
+randomness = 0.2
+interpolate = false
+fract_delta = false
+visibility_aabb = AABB(0, 0, 0, 8, 8, 8)
+process_material = SubResource("ParticleProcessMaterial_onqr8")
+draw_pass_1 = SubResource("QuadMesh_onqr8")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(0.459, 0, 0, 0, 0.445, 0, 0, 0, 1, 0, 0, -3.5091)
+amount = 169183
+lifetime = 600.0
+preprocess = 68.32
+speed_scale = 0.0
+randomness = 0.2
+interpolate = false
+fract_delta = false
+visibility_aabb = AABB(0, 0, 0, 8, 8, 8)
+process_material = SubResource("ParticleProcessMaterial_ycayy")
+draw_pass_1 = SubResource("QuadMesh_onqr8")
 
 [node name="Planet" type="CSGSphere3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(-0.995479, 0, -0.0949771, 0, 1, 0, 0.0949771, 0, -0.995479, 0, 0, -1.546)
+transform = Transform3D(-0.995495, -9.529e-05, -0.0948173, -4.32032e-05, 1, -0.000551464, 0.0948174, -0.000544884, -0.995495, 0, 0, -1.546)
 radial_segments = 25
 rings = 18
 material = SubResource("StandardMaterial3D_w5aja")
+script = ExtResource("2_onqr8")
+RotationSpeed = 0.06
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/Planet"]
+transform = Transform3D(1, 6.94126e-09, 6.70552e-08, 3.27418e-11, 1, -5.23869e-10, 0, 0, 1, -0.248968, 0.0751277, 2.61386)
+light_color = Color(0.673711, 0.000190309, 0.625171, 1)
+light_energy = 0.164
+light_indirect_energy = 1.981
+light_volumetric_fog_energy = 1.22
+light_angular_distance = 66.23
+light_specular = 0.41
+directional_shadow_mode = 0
+directional_shadow_split_1 = 0.145
+directional_shadow_fade_start = 0.189
+directional_shadow_max_distance = 53.0
+directional_shadow_pancake_size = 5.1
 script = ExtResource("2_onqr8")
 RotationSpeed = 1.0
 
