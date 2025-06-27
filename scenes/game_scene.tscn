@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://bavfe7oa1rkpe"]
+[gd_scene load_steps=15 format=3 uid="uid://bavfe7oa1rkpe"]
 
 [ext_resource type="Script" uid="uid://024uob1mwsyg" path="res://scripts/RotationY.cs" id="2_onqr8"]
 [ext_resource type="Texture2D" uid="uid://dg2vlkxq81dsa" path="res://materials/planet.jpg" id="2_ycayy"]
 [ext_resource type="Texture2D" uid="uid://dspmpqivent01" path="res://materials/panorama_image.png" id="3_ycayy"]
+[ext_resource type="Script" uid="uid://nqqdogte80aq" path="res://scenes/WorldEnvironmentSkyboxRotator.cs" id="4_bw6k5"]
 
 [sub_resource type="Curve" id="Curve_onqr8"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -64,7 +65,7 @@ background_mode = 2
 background_color = Color(0.0383972, 0.0383972, 0.0383972, 1)
 background_energy_multiplier = 0.65
 sky = SubResource("Sky_y3j0m")
-sky_custom_fov = 22.5
+sky_custom_fov = 126.4
 sky_rotation = Vector3(-2.52898, -2.15025, -1.69821)
 ambient_light_color = Color(0.486837, 0.343886, 0.110284, 1)
 ambient_light_sky_contribution = 0.22
@@ -168,7 +169,7 @@ size = Vector2i(384, 216)
 render_target_update_mode = 4
 
 [node name="Camera3D pos 2" type="Camera3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.844827, -0.0326462, -0.0829278)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.844827, -0.0326462, 0.336881)
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(0.459, 0, 0, 0, 0.445, 0, 0, 0, 1, 0, 0, -3.5091)
@@ -222,3 +223,5 @@ RotationSpeed = 1.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_lxttp")
+script = ExtResource("4_bw6k5")
+rotationSpeed = 0.001
