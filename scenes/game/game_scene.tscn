@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://bavfe7oa1rkpe"]
+[gd_scene load_steps=17 format=3 uid="uid://bavfe7oa1rkpe"]
 
-[ext_resource type="Script" uid="uid://024uob1mwsyg" path="res://scenes/RotationY.cs" id="2_onqr8"]
-[ext_resource type="Script" uid="uid://c11i23kybxodl" path="res://scenes/CameraMovement.cs" id="2_y3j0m"]
-[ext_resource type="Texture2D" uid="uid://dg2vlkxq81dsa" path="res://materials/planet.jpg" id="2_ycayy"]
-[ext_resource type="Texture2D" uid="uid://dspmpqivent01" path="res://materials/panorama_image.png" id="3_ycayy"]
-[ext_resource type="Script" uid="uid://nqqdogte80aq" path="res://scenes/WorldEnvironmentSkyboxRotator.cs" id="4_bw6k5"]
+[ext_resource type="Script" uid="uid://bmp3td5qix1e6" path="res://scenes/game/GameController.cs" id="1_6thfb"]
+[ext_resource type="Script" uid="uid://024uob1mwsyg" path="res://scenes/game/components/RotationY.cs" id="2_06uhe"]
+[ext_resource type="Script" uid="uid://c11i23kybxodl" path="res://scenes/game/CameraMovement.cs" id="3_gu01l"]
+[ext_resource type="Texture2D" uid="uid://dg2vlkxq81dsa" path="res://materials/planet.jpg" id="4_axn74"]
+[ext_resource type="Texture2D" uid="uid://dspmpqivent01" path="res://materials/panorama_image.png" id="5_fxxt8"]
+[ext_resource type="Script" uid="uid://nqqdogte80aq" path="res://scenes/game/components/WorldEnvironmentSkyboxRotator.cs" id="6_ecdjj"]
 
 [sub_resource type="Curve" id="Curve_onqr8"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -51,10 +52,10 @@ scale_min = 10.0
 scale_max = 10.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w5aja"]
-albedo_texture = ExtResource("2_ycayy")
+albedo_texture = ExtResource("4_axn74")
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_bw6k5"]
-panorama = ExtResource("3_ycayy")
+panorama = ExtResource("5_fxxt8")
 filter = false
 energy_multiplier = 0.91
 
@@ -73,6 +74,7 @@ ambient_light_sky_contribution = 0.22
 ambient_light_energy = 0.0
 
 [node name="game scene" type="Node3D"]
+script = ExtResource("1_6thfb")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.588489, -0.289748, 0.754806, 7.73294e-09, 0.933578, 0.358374, -0.808499, -0.2109, 0.549404, 0, 0, 0)
@@ -85,7 +87,7 @@ directional_shadow_split_1 = 0.145
 directional_shadow_fade_start = 0.189
 directional_shadow_max_distance = 53.0
 directional_shadow_pancake_size = 5.1
-script = ExtResource("2_onqr8")
+script = ExtResource("2_06uhe")
 RotationSpeed = 0.5
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
@@ -93,67 +95,6 @@ light_color = Color(0.857505, 0.510789, 0.970346, 1)
 light_energy = 0.047
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 1.213
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Observe Planet Button" type="Button" parent="CanvasLayer"]
-custom_minimum_size = Vector2(500, 150)
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -250.0
-offset_top = -250.0
-offset_right = 250.0
-offset_bottom = -100.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Observe Planet"
-
-[node name="Story Text Panel" type="Panel" parent="CanvasLayer"]
-visible = false
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -920.0
-offset_top = -238.0
-offset_right = -170.0
-offset_bottom = 62.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="Story Text" type="RichTextLabel" parent="CanvasLayer/Story Text Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-bbcode_enabled = true
-text = "A really big text here about this planet that will be destroyed in 34 years."
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Next Text Button" type="Button" parent="CanvasLayer"]
-visible = false
-custom_minimum_size = Vector2(10, 100)
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -520.0
-offset_top = 102.0
-offset_right = -170.0
-offset_bottom = 202.0
-grow_horizontal = 0
-grow_vertical = 2
-rotation = 6.22841e-05
-scale = Vector2(0.999998, 1)
-text = "next"
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 texture_filter = 1
@@ -172,7 +113,8 @@ render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.07, -0.3)
-script = ExtResource("2_y3j0m")
+script = ExtResource("3_gu01l")
+mainMenuPosition = Vector3(0, -0.07, -0.3)
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(0.459, 0, 0, 0, 0.445, 0, 0, 0, 1, 0, 0, -3.5091)
@@ -205,7 +147,7 @@ transform = Transform3D(-0.995495, -9.529e-05, -0.0948173, -4.32032e-05, 1, -0.0
 radial_segments = 25
 rings = 18
 material = SubResource("StandardMaterial3D_w5aja")
-script = ExtResource("2_onqr8")
+script = ExtResource("2_06uhe")
 RotationSpeed = 0.06
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/Planet"]
@@ -221,10 +163,10 @@ directional_shadow_split_1 = 0.145
 directional_shadow_fade_start = 0.189
 directional_shadow_max_distance = 53.0
 directional_shadow_pancake_size = 5.1
-script = ExtResource("2_onqr8")
+script = ExtResource("2_06uhe")
 RotationSpeed = 1.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_lxttp")
-script = ExtResource("4_bw6k5")
+script = ExtResource("6_ecdjj")
 rotationSpeed = 0.001
