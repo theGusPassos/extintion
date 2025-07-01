@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2pxo72qghl27"]
+
+[ext_resource type="Script" uid="uid://oos8p300vlnv" path="res://scenes/ui/localization_selector/LocalizationMenu.cs" id="1_f46wd"]
+[ext_resource type="PackedScene" uid="uid://rg2fmeoofqe2" path="res://scenes/ui/localization_selector/language_button.tscn" id="2_0whxb"]
+
+[node name="Select Language CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("container")]
+script = ExtResource("1_f46wd")
+languageButton = ExtResource("2_0whxb")
+container = NodePath("Panel/VBoxContainer")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"panel2"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -152.0
+offset_right = 175.0
+offset_bottom = 152.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 45

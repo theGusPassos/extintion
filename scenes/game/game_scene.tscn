@@ -1,6 +1,5 @@
-[gd_scene load_steps=17 format=3 uid="uid://bavfe7oa1rkpe"]
+[gd_scene load_steps=16 format=3 uid="uid://bavfe7oa1rkpe"]
 
-[ext_resource type="Script" uid="uid://bmp3td5qix1e6" path="res://scenes/game/GameController.cs" id="1_6thfb"]
 [ext_resource type="Script" uid="uid://024uob1mwsyg" path="res://scenes/game/components/RotationY.cs" id="2_06uhe"]
 [ext_resource type="Script" uid="uid://c11i23kybxodl" path="res://scenes/game/CameraMovement.cs" id="3_gu01l"]
 [ext_resource type="Texture2D" uid="uid://dg2vlkxq81dsa" path="res://materials/planet.jpg" id="4_axn74"]
@@ -74,7 +73,6 @@ ambient_light_sky_contribution = 0.22
 ambient_light_energy = 0.0
 
 [node name="game scene" type="Node3D"]
-script = ExtResource("1_6thfb")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.588489, -0.289748, 0.754806, 7.73294e-09, 0.933578, 0.358374, -0.808499, -0.2109, 0.549404, 0, 0, 0)

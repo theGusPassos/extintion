@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=19 format=4 uid="uid://c0gd1vktx3xh6"]
+[gd_resource type="Theme" load_steps=20 format=4 uid="uid://c0gd1vktx3xh6"]
 
 [ext_resource type="FontFile" uid="uid://b3kfvihpmlbel" path="res://fonts/Pixellari.ttf" id="1_jsamo"]
 
@@ -1449,6 +1449,9 @@ content_margin_top = 0.0
 content_margin_right = 0.0
 content_margin_bottom = 0.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0p1i4"]
+bg_color = Color(0.00326513, 1.05286e-08, 0.0764295, 1)
+
 [resource]
 Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
 Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
@@ -1506,3 +1509,5 @@ RichTextLabel/fonts/mono_font = SubResource("FontFile_0p1i4")
 RichTextLabel/fonts/normal_font = ExtResource("1_jsamo")
 RichTextLabel/styles/focus = SubResource("StyleBoxFlat_edsq4")
 RichTextLabel/styles/normal = SubResource("StyleBoxEmpty_ndgct")
+panel2/base_type = &"Panel"
+panel2/styles/panel = SubResource("StyleBoxFlat_0p1i4")
