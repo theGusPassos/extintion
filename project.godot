@@ -15,6 +15,11 @@ run/main_scene="uid://bavfe7oa1rkpe"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+EventBus="*res://scenes/game/EventBus.cs"
+GameController="*res://scenes/game/GameController.cs"
+
 [display]
 
 window/size/viewport_width=1920

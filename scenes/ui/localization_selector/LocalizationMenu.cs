@@ -28,6 +28,7 @@ public partial class LocalizationMenu : CanvasLayer
 
 	void OnLanguageSelected(string languageCode)
 	{
-		GD.Print(languageCode);
+		TranslationServer.SetLocale(languageCode);
+		EventBus.Instance.OnLanguageSelected(languageCode);
 	}
 }
