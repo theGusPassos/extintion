@@ -4,7 +4,9 @@ public partial class SceneSwitcher : Node
 {
 	public static SceneSwitcher Instance { get; private set;}
 
-	Node currentScene;
+	[Export] AnimationPlayer fadeAnimation;
+	[Export] Node currentScene;
+	Node nextScene;
 
     public override void _EnterTree()
     {
@@ -19,14 +21,26 @@ public partial class SceneSwitcher : Node
 
     public override void _Ready()
     {
-		// Select Language scene
-		currentScene = GetChild(0);
+		fadeAnimation.Play("fade_out");
+		fadeAnimation.AnimationFinished += OnFadeFinished;
     }
+
+	void OnFadeFinished(StringName animation)
+	{
+		if (animation == "fade_in")
+		{
+			currentScene.QueueFree();
+			currentScene = nextScene;
+			AddChild(nextScene);
+			nextScene = null;
+
+			fadeAnimation.Play("fade_out");
+		}
+	}
 
 	public void LoadGameScene()
 	{
-		var gameScene = GD.Load<PackedScene>("res://scenes/game/game_scene.tscn").Instantiate();
-		AddChild(gameScene);
-		currentScene.QueueFree();
+		nextScene = GD.Load<PackedScene>("res://scenes/game/game_scene.tscn").Instantiate();
+		fadeAnimation.Play("fade_in");
 	}
 }
