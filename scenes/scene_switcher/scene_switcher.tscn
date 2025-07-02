@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhsn872pcdlfl"]
+
+[ext_resource type="PackedScene" uid="uid://c2pxo72qghl27" path="res://scenes/ui/localization_selector/localization_selection.tscn" id="1_4qr4g"]
+[ext_resource type="Script" uid="uid://c4btfrpppnufi" path="res://scenes/scene_switcher/SceneSwitcher.cs" id="1_mbywk"]
+
+[node name="Scene Switcher" type="Node"]
+script = ExtResource("1_mbywk")
+
+[node name="Select Language CanvasLayer" parent="." instance=ExtResource("1_4qr4g")]

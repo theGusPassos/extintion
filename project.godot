@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Extintion"
-run/main_scene="uid://bavfe7oa1rkpe"
+run/main_scene="uid://dhsn872pcdlfl"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 

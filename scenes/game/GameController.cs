@@ -10,7 +10,7 @@ public partial class GameController : Node3D
 
 	void OnLanguageSelected(string _)
 	{
-		GD.Print("testsrA");
+		SceneSwitcher.Instance.LoadGameScene();
 	}
 }
 
