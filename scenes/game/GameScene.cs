@@ -1,8 +1,11 @@
+using System.Threading.Tasks;
 using Godot;
 
 public partial class GameScene : Node3D
 {
 	[Export] CameraMovement cameraMovement;
+	[Export] PackedScene textShowerScene;
+	[Export] float timeBeforeShowingText;
 
 	public override void _Ready()
 	{
@@ -11,10 +14,13 @@ public partial class GameScene : Node3D
 
 	void OnObservePlanetClicked()
 	{
-		// move camera,
 		cameraMovement.GotToGamePosition();
-		// wait and spawn text shower
-		// load text from .d and send to text shower
-		// once all texts are done, calls GameController so it can reset the game
+		_ = WaitAndShowGameTextAsync();
+	}
+
+	async Task WaitAndShowGameTextAsync()
+	{
+		await ToSignal(GetTree().CreateTimer(timeBeforeShowingText), SceneTreeTimer.SignalName.Timeout);
+		AddChild(textShowerScene.Instantiate());
 	}
 }

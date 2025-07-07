@@ -3,7 +3,7 @@ using System;
 
 public partial class CameraMovement : Camera3D
 {
-	[Export] float movementSpeed;
+	[Export] float animationTime;
 	[Export] Vector3 mainMenuPosition;
 	[Export] Vector3 positionInGame;
 
@@ -21,9 +21,19 @@ public partial class CameraMovement : Camera3D
 	{
 		if (isMovingToInGamePos)
 		{
-			movementT += (float)delta * movementSpeed;
-			Position = mainMenuPosition.Lerp(positionInGame, movementT);
+			movementT += (float)delta;
+			if (movementT >= animationTime)
+			{
+				movementT = animationTime;
+				isMovingToInGamePos = false;
+			}
+
+			Position = mainMenuPosition.Lerp(positionInGame, EaseOutCubic(movementT / animationTime));
 		}
+	}
+
+	static float EaseOutCubic(float x) {
+		return 1 - (float)Math.Pow(1 - x, 3);
 	}
 
 	public void GotToGamePosition()
