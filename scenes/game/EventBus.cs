@@ -6,6 +6,7 @@ public partial class EventBus : Node
 	public static EventBus Instance { get; private set;}
 
     public event Action<string> LanguageSelectedEvent;
+    public event Action ObservePlanetEvent;
 
     public override void _EnterTree()
     {
@@ -21,5 +22,10 @@ public partial class EventBus : Node
 	public void OnLanguageSelected(string languageCode)
 	{
 		LanguageSelectedEvent?.Invoke(languageCode);
+	}
+
+	public void OnObservePlanetButtonPressed()
+	{
+		ObservePlanetEvent?.Invoke();
 	}
 }

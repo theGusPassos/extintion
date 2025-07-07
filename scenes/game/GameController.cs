@@ -12,6 +12,10 @@ public partial class GameController : Node3D
 	{
 		SceneSwitcher.Instance.LoadGameScene();
 	}
+
+	void OnObservePlanetClicked()
+	{
+	}
 }
 
 public enum GameState

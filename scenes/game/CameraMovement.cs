@@ -25,4 +25,10 @@ public partial class CameraMovement : Camera3D
 			Position = mainMenuPosition.Lerp(positionInGame, movementT);
 		}
 	}
+
+	public void GotToGamePosition()
+	{
+		Tween tween = CreateTween();
+		tween.TweenProperty(this, "position", positionInGame, 3.5f);
+	}
 }
