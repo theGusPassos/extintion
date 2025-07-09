@@ -37,6 +37,7 @@ public partial class TextShower : CanvasLayer
 	void LoadDialogsToShow()
 	{
 		var locale = TranslationServer.GetLocale();
+		GD.Print($"loading locale {locale}");
 		using var file = FileAccess.Open($"res://data/{locale}.txt", FileAccess.ModeFlags.Read);
 
 		var allLines = new List<string>();
@@ -87,7 +88,6 @@ public partial class TextShower : CanvasLayer
 		{
 			EventBus.Instance.OnDialogsFinished();
 			controlAlphaAnimation.Play("fade_out");
-			GD.PushWarning("finished");
 			return;
 		}
 

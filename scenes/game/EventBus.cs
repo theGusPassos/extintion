@@ -7,8 +7,9 @@ public partial class EventBus : Node
 
     public event Action<string> LanguageSelectedEvent;
     public event Action ObservePlanetEvent;
-    public event Action DialogRead;
-    public event Action DialogsFinished;
+    public event Action DialogReadEvent;
+    public event Action DialogsFinishedEvent;
+    public event Action GameEndedEvent;
 
     public override void _EnterTree()
     {
@@ -33,11 +34,16 @@ public partial class EventBus : Node
 
 	public void OnDialogRead()
 	{
-		DialogRead?.Invoke();
+		DialogReadEvent?.Invoke();
 	}
 
 	public void OnDialogsFinished()
 	{
-		DialogsFinished?.Invoke();
+		DialogsFinishedEvent?.Invoke();
+	}
+
+	public void OnGameEnded()
+	{
+		GameEndedEvent?.Invoke();
 	}
 }

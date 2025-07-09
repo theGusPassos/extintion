@@ -57,13 +57,13 @@ _data = {
 
 [node name="Scene Switcher" type="Node" node_paths=PackedStringArray("fadeAnimation", "currentScene")]
 script = ExtResource("1_mbywk")
-fadeAnimation = NodePath("CanvasLayer/AnimationPlayer")
+fadeAnimation = NodePath("Fade Out Canvas Layer/AnimationPlayer")
 currentScene = NodePath("Select Language CanvasLayer")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Fade Out Canvas Layer" type="CanvasLayer" parent="."]
 layer = 10
 
-[node name="Overlay" type="ColorRect" parent="CanvasLayer"]
+[node name="Overlay" type="ColorRect" parent="Fade Out Canvas Layer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -73,7 +73,7 @@ mouse_filter = 2
 mouse_force_pass_scroll_events = false
 color = Color(0, 0, 0, 0)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Fade Out Canvas Layer"]
 libraries = {
 &"": SubResource("AnimationLibrary_xuwwi")
 }

@@ -20,7 +20,7 @@ public partial class CameraMovement : Camera3D
 		Position = mainMenuPosition;
 		movementT = 0;
 
-		EventBus.Instance.DialogRead += StartZoomingOut;
+		EventBus.Instance.DialogReadEvent += StartZoomingOut;
 	}
 
 	void StartZoomingOut()

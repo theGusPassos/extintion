@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using Godot;
 
 public partial class SceneSwitcher : Node
@@ -38,9 +39,23 @@ public partial class SceneSwitcher : Node
 		}
 	}
 
+    public override void _Process(double delta)
+    {
+		if (Input.IsKeyPressed(Key.A))
+		{
+			RestartGame();
+		}
+    }
+
+
 	public void LoadGameScene()
 	{
 		nextScene = GD.Load<PackedScene>("res://scenes/game/game_scene.tscn").Instantiate();
 		fadeAnimation.Play("fade_in");
+	}
+
+	public void RestartGame()
+	{
+		LoadGameScene();
 	}
 }

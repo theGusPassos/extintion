@@ -76,11 +76,13 @@ ambient_light_color = Color(0.486837, 0.343886, 0.110284, 1)
 ambient_light_sky_contribution = 0.22
 ambient_light_energy = 0.0
 
-[node name="game scene" type="Node3D" node_paths=PackedStringArray("cameraMovement")]
+[node name="game scene" type="Node3D" node_paths=PackedStringArray("cameraMovement", "blackoutEndgame")]
 script = ExtResource("1_06uhe")
 cameraMovement = NodePath("SubViewportContainer/SubViewport/Camera3D")
 textShowerScene = ExtResource("8_gu01l")
 timeBeforeShowingText = 2.0
+timeToShowBlackout = 8.0
+blackoutEndgame = NodePath("Blackout Endgame")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.588489, -0.289748, 0.754806, 7.73294e-09, 0.933578, 0.358374, -0.808499, -0.2109, 0.549404, 0, 0, 0)
@@ -120,7 +122,7 @@ render_target_update_mode = 4
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.07, -0.3)
 script = ExtResource("3_gu01l")
-animationTime = 4.5
+animationTime = 7.0
 mainMenuPosition = Vector3(0, -0.07, -0.3)
 positionInGame = Vector3(1.09, -0.13, 0.565)
 zoomOutSpeed = 0.05
@@ -185,3 +187,13 @@ script = ExtResource("6_ecdjj")
 rotationSpeed = 0.001
 
 [node name="Main Menu" parent="." instance=ExtResource("6_6thfb")]
+
+[node name="Blackout Endgame" type="ColorRect" parent="."]
+visible = false
+z_index = 17
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
