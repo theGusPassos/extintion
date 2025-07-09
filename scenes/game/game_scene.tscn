@@ -30,7 +30,8 @@ spread = 0.0
 gravity = Vector3(0, 0, 0)
 radial_accel_min = -2.23517e-06
 radial_accel_max = 0.0999978
-scale_max = 2.0
+scale_min = 2.0
+scale_max = 3.0
 color = Color(0, 1, 1, 0.713726)
 alpha_curve = SubResource("CurveTexture_ycayy")
 
@@ -50,8 +51,8 @@ emission_ring_radius = 20.42
 emission_ring_inner_radius = 168.37
 emission_ring_cone_angle = 80.4
 gravity = Vector3(0, 0, 0)
-scale_min = 10.0
-scale_max = 10.0
+scale_min = 6.0
+scale_max = 7.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w5aja"]
 albedo_texture = ExtResource("4_axn74")
@@ -119,12 +120,16 @@ render_target_update_mode = 4
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.07, -0.3)
 script = ExtResource("3_gu01l")
-animationTime = 3.5
+animationTime = 4.5
 mainMenuPosition = Vector3(0, -0.07, -0.3)
 positionInGame = Vector3(1.09, -0.13, 0.565)
+zoomOutSpeed = 0.05
+maxZoomOut = 14.0
+zoomOutDelayAfterDialog = 0.5
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(0.459, 0, 0, 0, 0.445, 0, 0, 0, 1, 0, 0, -3.5091)
+visible = false
 amount = 169183
 lifetime = 524.54
 preprocess = 68.32
@@ -138,6 +143,7 @@ draw_pass_1 = SubResource("QuadMesh_onqr8")
 
 [node name="GPUParticles3D2" type="GPUParticles3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(0.459, 0, 0, 0, 0.445, 0, 0, 0, 1, 0, 0, -3.5091)
+visible = false
 amount = 169183
 lifetime = 600.0
 preprocess = 68.32

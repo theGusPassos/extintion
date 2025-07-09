@@ -7,6 +7,8 @@ public partial class EventBus : Node
 
     public event Action<string> LanguageSelectedEvent;
     public event Action ObservePlanetEvent;
+    public event Action DialogRead;
+    public event Action DialogsFinished;
 
     public override void _EnterTree()
     {
@@ -27,5 +29,15 @@ public partial class EventBus : Node
 	public void OnObservePlanetButtonPressed()
 	{
 		ObservePlanetEvent?.Invoke();
+	}
+
+	public void OnDialogRead()
+	{
+		DialogRead?.Invoke();
+	}
+
+	public void OnDialogsFinished()
+	{
+		DialogsFinished?.Invoke();
 	}
 }
