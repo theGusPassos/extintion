@@ -39,7 +39,7 @@ public partial class CameraMovement : Camera3D
 				isMovingToInGamePos = false;
 			}
 
-			Position = mainMenuPosition.Lerp(positionInGame, EaseOutCubic(movementT / animationTime));
+			Position = mainMenuPosition.Lerp(positionInGame, EaseInOutSine(movementT / animationTime));
 		}
 
 		if (isZoomingOut)
@@ -61,8 +61,8 @@ public partial class CameraMovement : Camera3D
 		}
 	}
 
-	static float EaseOutCubic(float x) {
-		return 1 - (float)Math.Pow(1 - x, 3);
+	static float EaseInOutSine(float x) {
+		return -(float)(Math.Cos(Math.PI * x) - 1f) / 2f;
 	}
 
 	public void GotToGamePosition()
