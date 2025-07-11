@@ -22,16 +22,13 @@ public partial class TextShower : CanvasLayer
 	public override void _Ready()
 	{
 		controlAlphaAnimation.Play("fade_in");
-		nextDialogButton.Visible = false;
+		nextDialogButton.Visible = true;
 		nextDialogButton.Pressed += OnNextDialogPressed;
 
-		textLabel.Text = string.Empty;
-		currentDialog = currentLetter = 0;
-		timeToWait = timeToShowFirstDialog;
-		timeToShowNextChar = timePerCharacter;
-
 		LoadDialogsToShow();
-		isTypingDialog = true;
+
+		currentDialog = currentLetter = 0;
+		textLabel.Text = dialogsToShow[currentDialog];
 	}
 
 	void LoadDialogsToShow()
@@ -50,36 +47,6 @@ public partial class TextShower : CanvasLayer
 
 	public override void _Process(double delta)
 	{
-		if (timeToWait > 0)
-		{
-			timeToWait -= (float)delta;
-			return;
-		}
-
-		if (!isTypingDialog)
-		{
-			// finished current dialog
-			return;
-		}
-
-		if (timeToShowNextChar > 0)
-		{
-			timeToShowNextChar -= (float)delta;
-			return;
-		}
-
-		var letter = dialogsToShow[currentDialog][currentLetter];
-		textLabel.Text += letter;
-		timeToShowNextChar = letter == ' '
-			? 0
-			: timePerCharacter;
-		currentLetter++;
-
-		if (FinishedTypingDialog)
-		{
-			isTypingDialog = false;
-			nextDialogButton.Visible = true;
-		}
 	}
 
 	void OnNextDialogPressed()
@@ -90,22 +57,12 @@ public partial class TextShower : CanvasLayer
 			controlAlphaAnimation.Play("fade_out");
 			return;
 		}
-
-		if (FinishedTypingDialog)
+		else
 		{
 			EventBus.Instance.OnDialogRead();
 
-			textLabel.Text = string.Empty;
 			currentDialog++;
-			currentLetter = 0;
-			isTypingDialog = true;
-		}
-		else
-		{
-			// skip typing and just show the full dialog
-			isTypingDialog = false;
 			textLabel.Text = dialogsToShow[currentDialog];
-			currentLetter = dialogsToShow[currentDialog].Length;
 		}
 	}
 }
