@@ -33,6 +33,10 @@ project/assembly_name="Extintion"
 
 theme/custom="uid://c0gd1vktx3xh6"
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://data/localization.en.translation", "res://data/localization.pt.translation")
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

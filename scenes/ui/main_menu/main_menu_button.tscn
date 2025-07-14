@@ -85,4 +85,4 @@ offset_right = 250.0
 offset_bottom = -89.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "Observe Planet"
+text = "OBSERVE_PLANET"
