@@ -59,7 +59,6 @@ script = ExtResource("1_x7uwo")
 controlAlphaAnimation = NodePath("Control/AnimationPlayer")
 timeToShowFirstDialog = 1.0
 textLabel = NodePath("Control/Story Text Panel/MarginContainer/Story Text")
-timePerCharacter = 0.07
 nextDialogButton = NodePath("Control/Next Text Button")
 
 [node name="Control" type="Control" parent="."]

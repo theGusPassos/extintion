@@ -6,7 +6,6 @@ public partial class TextShower : CanvasLayer
 	[Export] AnimationPlayer controlAlphaAnimation;
 	[Export] float timeToShowFirstDialog;
 	[Export] RichTextLabel textLabel;
-	[Export] float timePerCharacter;
 	[Export] Button nextDialogButton;
 
 	bool isTypingDialog;
@@ -16,7 +15,6 @@ public partial class TextShower : CanvasLayer
 	int currentLetter;
 	float timeToShowNextChar;
 
-	bool FinishedTypingDialog => currentLetter == dialogsToShow[currentDialog].Length;
 	bool FinishedAllDialogs => currentDialog == dialogsToShow.Length - 1;
 
 	public override void _Ready()
@@ -40,18 +38,18 @@ public partial class TextShower : CanvasLayer
 		var allLines = new List<string>();
 		while (!file.EofReached())
 		{
-			allLines.Add(file.GetLine());
+			var line = file.GetLine();
+			if (!string.IsNullOrEmpty(line))
+			{
+				allLines.Add(file.GetLine());
+			}
 		}
 		dialogsToShow = allLines.ToArray();
 	}
 
-	public override void _Process(double delta)
-	{
-	}
-
 	void OnNextDialogPressed()
 	{
-		if (FinishedAllDialogs && FinishedTypingDialog)
+		if (FinishedAllDialogs)
 		{
 			EventBus.Instance.OnDialogsFinished();
 			controlAlphaAnimation.Play("fade_out");
