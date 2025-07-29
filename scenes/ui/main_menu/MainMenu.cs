@@ -1,5 +1,3 @@
-using Godot;
-
 public partial class MainMenu : Node
 {
 	[Export] Button button;
@@ -13,7 +11,7 @@ public partial class MainMenu : Node
 	void OnObservePlanetButtonPressed()
 	{
 		button.Disabled = true;
-		controlAlphaAnimation.Play("fade_out");
+		controlAlphaAnimation.Play(AnimationName.FadeOut);
 		EventBus.Instance.OnObservePlanetButtonPressed();
 	}
 }

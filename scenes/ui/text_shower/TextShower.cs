@@ -1,66 +1,61 @@
 using System.Collections.Generic;
-using Godot;
+using System.Linq;
 
 public partial class TextShower : CanvasLayer
 {
-	[Export] AnimationPlayer controlAlphaAnimation;
-	[Export] float timeToShowFirstDialog;
-	[Export] RichTextLabel textLabel;
-	[Export] Button nextDialogButton;
+    [Export] AnimationPlayer controlAlphaAnimation;
+    [Export] float timeToShowFirstDialog;
+    [Export] RichTextLabel textLabel;
+    [Export] Button nextDialogButton;
 
-	bool isTypingDialog;
-	float timeToWait;
-	string[] dialogsToShow;
-	int currentDialog;
-	int currentLetter;
-	float timeToShowNextChar;
+    bool isTypingDialog;
+    float timeToWait;
+    string[] dialogsToShow;
+    int currentDialogIndex;
+    int currentLetter;
+    float timeToShowNextChar;
 
-	bool FinishedAllDialogs => currentDialog == dialogsToShow.Length - 1;
+    bool FinishedAllDialogs => currentDialogIndex == dialogsToShow.Length - 1;
 
-	public override void _Ready()
-	{
-		controlAlphaAnimation.Play("fade_in");
-		nextDialogButton.Visible = true;
-		nextDialogButton.Pressed += OnNextDialogPressed;
+    string CurrentDialog => dialogsToShow is [] ? string.Empty : dialogsToShow[currentDialogIndex];
 
-		LoadDialogsToShow();
+    public override void _Ready()
+    {
+        controlAlphaAnimation.Play(AnimationName.FadeIn);
+        nextDialogButton.Visible = true;
+        nextDialogButton.Pressed += OnNextDialogPressed;
 
-		currentDialog = currentLetter = 0;
-		textLabel.Text = dialogsToShow[currentDialog];
-	}
+        dialogsToShow = LoadDialogsToShow().ToArray();
+        currentDialogIndex = currentLetter = 0;
+        textLabel.Text = CurrentDialog;
+    }
 
-	void LoadDialogsToShow()
-	{
-		var locale = TranslationServer.GetLocale();
-		GD.Print($"loading locale {locale}");
-		using var file = FileAccess.Open($"res://data/{locale}.txt", FileAccess.ModeFlags.Read);
+    static IEnumerable<string> LoadDialogsToShow()
+    {
+        var locale = TranslationServer.GetLocale();
+        GD.Print($"loading locale {locale}");
+        using var file = FileAccess.Open($"res://data/{locale}.txt", FileAccess.ModeFlags.Read);
 
-		var allLines = new List<string>();
-		while (!file.EofReached())
-		{
-			var line = file.GetLine();
-			if (!string.IsNullOrEmpty(line))
-			{
-				allLines.Add(file.GetLine());
-			}
-		}
-		dialogsToShow = allLines.ToArray();
-	}
+        while (!file.EofReached())
+        {
+            var line = file.GetLine();
+            if (!string.IsNullOrEmpty(line))
+                yield return file.GetLine();
+        }
+    }
 
-	void OnNextDialogPressed()
-	{
-		if (FinishedAllDialogs)
-		{
-			EventBus.Instance.OnDialogsFinished();
-			controlAlphaAnimation.Play("fade_out");
-			return;
-		}
-		else
-		{
-			EventBus.Instance.OnDialogRead();
+    void OnNextDialogPressed()
+    {
+        if (FinishedAllDialogs)
+        {
+            EventBus.Instance.OnDialogsFinished();
+            controlAlphaAnimation.Play(AnimationName.FadeOut);
+            return;
+        }
 
-			currentDialog++;
-			textLabel.Text = dialogsToShow[currentDialog];
-		}
-	}
+        EventBus.Instance.OnDialogRead();
+
+        currentDialogIndex = Mathf.Clamp(currentDialogIndex + 1, 0, dialogsToShow.Length - 1);
+        textLabel.Text = CurrentDialog;
+    }
 }
