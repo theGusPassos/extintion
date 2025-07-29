@@ -1,61 +1,56 @@
-using System.Security.Cryptography;
-using Godot;
-
 public partial class SceneSwitcher : Node
 {
-	public static SceneSwitcher Instance { get; private set;}
+    public static SceneSwitcher Instance { get; private set; }
 
-	[Export] AnimationPlayer fadeAnimation;
-	[Export] Node currentScene;
-	Node nextScene;
+    [Export] AnimationPlayer fadeAnimation;
+    [Export] Node currentScene;
+    Node nextScene;
 
     public override void _EnterTree()
     {
-		if (Instance != null && Instance != this)
-		{
-			QueueFree();
-			return;
-		}
+        if (IsInstanceValid(Instance) && !Instance.IsQueuedForDeletion() && Instance != this)
+        {
+            QueueFree();
+            return;
+        }
 
-		Instance = this;
+        Instance = this;
     }
 
     public override void _Ready()
     {
-		fadeAnimation.Play("fade_out");
-		fadeAnimation.AnimationFinished += OnFadeFinished;
+        fadeAnimation.Play(AnimationName.FadeOut);
+        fadeAnimation.AnimationFinished += OnFadeFinished;
     }
 
-	void OnFadeFinished(StringName animation)
-	{
-		if (animation == "fade_in")
-		{
-			currentScene.QueueFree();
-			currentScene = nextScene;
-			AddChild(nextScene);
-			nextScene = null;
-
-			fadeAnimation.Play("fade_out");
-		}
-	}
-
-    public override void _Process(double delta)
+    void OnFadeFinished(StringName animation)
     {
-		if (Input.IsKeyPressed(Key.A))
-		{
-			RestartGame();
-		}
+        if (animation == AnimationName.FadeIn)
+        {
+            if (!IsInstanceValid(nextScene)) return;
+            currentScene.QueueFree();
+            currentScene = nextScene;
+            AddChild(nextScene);
+            nextScene = null;
+            
+            fadeAnimation.Play(AnimationName.FadeOut);
+        }
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is InputEventKey { Pressed: true, Keycode: Key.A })
+        {
+            RestartGame();
+        }
     }
 
 
-	public void LoadGameScene()
-	{
-		nextScene = GD.Load<PackedScene>("res://scenes/game/game_scene.tscn").Instantiate();
-		fadeAnimation.Play("fade_in");
-	}
+    public void LoadGameScene()
+    {
+        nextScene = GD.Load<PackedScene>("res://scenes/game/game_scene.tscn").Instantiate();
+        fadeAnimation.Play(AnimationName.FadeIn);
+    }
 
-	public void RestartGame()
-	{
-		LoadGameScene();
-	}
+    public void RestartGame() => LoadGameScene();
 }

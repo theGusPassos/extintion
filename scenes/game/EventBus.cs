@@ -1,49 +1,36 @@
-using Godot;
-using System;
-
 public partial class EventBus : Node
 {
-	public static EventBus Instance { get; private set;}
+    public static EventBus Instance { get; private set; }
 
-    public event Action<string> LanguageSelectedEvent;
-    public event Action ObservePlanetEvent;
-    public event Action DialogReadEvent;
-    public event Action DialogsFinishedEvent;
-    public event Action GameEndedEvent;
+    [Signal]
+    public delegate void LanguageSelectedEventHandler(string languageCode);
+
+    [Signal]
+    public delegate void ObservePlanetEventHandler();
+
+    [Signal]
+    public delegate void DialogReadEventHandler();
+
+    [Signal]
+    public delegate void DialogsFinishedEventHandler();
+
+    [Signal]
+    public delegate void GameEndedEventHandler();
 
     public override void _EnterTree()
     {
-		if (Instance != null && Instance != this)
-		{
-			QueueFree();
-			return;
-		}
+        if (IsInstanceValid(Instance) && !Instance.IsQueuedForDeletion() && Instance != this)
+        {
+            QueueFree();
+            return;
+        }
 
-		Instance = this;
+        Instance = this;
     }
 
-	public void OnLanguageSelected(string languageCode)
-	{
-		LanguageSelectedEvent?.Invoke(languageCode);
-	}
-
-	public void OnObservePlanetButtonPressed()
-	{
-		ObservePlanetEvent?.Invoke();
-	}
-
-	public void OnDialogRead()
-	{
-		DialogReadEvent?.Invoke();
-	}
-
-	public void OnDialogsFinished()
-	{
-		DialogsFinishedEvent?.Invoke();
-	}
-
-	public void OnGameEnded()
-	{
-		GameEndedEvent?.Invoke();
-	}
+    public void OnLanguageSelected(string languageCode) => EmitSignalLanguageSelected(languageCode);
+    public void OnObservePlanetButtonPressed() => EmitSignalObservePlanet();
+    public void OnDialogRead() => EmitSignalDialogRead();
+    public void OnDialogsFinished() => EmitSignalDialogsFinished();
+    public void OnGameEnded() => EmitSignalGameEnded();
 }

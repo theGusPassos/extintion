@@ -1,7 +1,3 @@
-using Godot;
-using System;
-using System.Diagnostics;
-
 public partial class RotationY : Node3D
 {
 	[Export] float RotationSpeed;
